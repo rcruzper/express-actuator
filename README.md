@@ -13,32 +13,32 @@ It is based on [Spring Boot Actuator](http://docs.spring.io/spring-boot/docs/cur
 
 These are the endpoints available:
 
-- /info - Displays application information if package.json is in the same directory of the app.
-```json
-{
-    "build": {
-        "description": "This is my new app",
-        "name": "MyApp",
-        "version": "1.0.0"
+- /info - Displays application information.
+    ```json
+    {
+        "build": {
+            "description": "This is my new app",
+            "name": "MyApp",
+            "version": "1.0.0"
+        }
     }
-}
-```
-IMPORTANT: To get this information the middleware have some sort of logic:
+    ```
+    IMPORTANT: To get this information the middleware have some sort of logic:
     1. If the express app is executed with ```npm start``` it will get the data from process.env
     2. If the express app is executed with ```node app.js``` the module will look for a file named package.json where the node command was launched.
 
 
 - /metrics - Shows ‘metrics’ information for the current application.
-```json
-{
-    "mem": {
-        "heapTotal": 14659584,
-        "heapUsed": 10615072,
-        "rss": 30093312
-    },
-    "uptime": 19.797
-}
-```
+    ```json
+    {
+        "mem": {
+            "heapTotal": 14659584,
+            "heapUsed": 10615072,
+            "rss": 30093312
+        },
+        "uptime": 19.797
+    }
+    ```
 
 ## Installation
 
