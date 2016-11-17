@@ -16,7 +16,7 @@ describe('actuator middleware', function () {
                 build: {
                     description: 'Express Actuator provides monitoring endpoints based on Spring Boot Actuator and the healthcheck-ping module by Mathias Schreck',
                     name: 'express-actuator',
-                    version: '1.0.0'
+                    version: '1.0.1'
                 }
             });
     });
