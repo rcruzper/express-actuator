@@ -1,0 +1,9 @@
+{
+    "extends": "eslint:recommended",
+    "env": {
+        "node": "true"
+    },
+    "rules": {
+        "new-cap": [ 2, { "capIsNewExceptions": [ "Router" ] } ]
+    }
+}
