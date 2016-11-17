@@ -6,13 +6,16 @@ It is based on [Spring Boot Actuator](http://docs.spring.io/spring-boot/docs/cur
 
 ## Endpoints
 
+These are the actual endpoints available:
+
 | Path  	| Description                                              	|
 |----------	|----------------------------------------------------------	|
 | /info    	| Displays application info                                	|
 | /metrics 	| Shows ‘metrics’ information for the current application. 	|
 
 ## Installation
-```
+
+```bash
 $ npm install express-actuator --save
 ```
 
@@ -29,5 +32,5 @@ app.use(actuator());
 If you want the endpoints to be available on a custom endpoint you can do so:
 
 ```js
-app.use(actuator('/management')); // It will set /management/info
+app.use(actuator('/management')); // It will set /management/info instead of /info
 ```
