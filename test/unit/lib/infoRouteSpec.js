@@ -5,6 +5,7 @@ var chai = require('chai'),
     sinon = require('sinon'),
     sinonChai = require('sinon-chai'),
     infoRoute = require('../../../lib/infoRoute');
+var rewire = require("rewire");
 
 chai.use(sinonChai);
 
@@ -32,6 +33,18 @@ describe('info route', function () {
         expect(response.json).to.have.been.calledOnce;
         expect(response.json).to.have.property('name');
     });
+
+    it('should send a payload when process.env.npm_package_name does not exists', function () {
+        var infoRouteRewire = rewire("../../../lib/infoRoute");
+        infoRouteRewire.__set__("env", null);
+
+        infoRouteRewire(null, response);
+
+        expect(response.json).to.have.been.calledOnce;
+        expect(response.json).to.have.property('name');
+    });
+
+
 
     it('should flush the response sending', function () {
         infoRoute(null, response);

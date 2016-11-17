@@ -1,52 +1,54 @@
 {
-    "name": "express-actuator",
-    "version": "1.0.0",
-    "description": "Express Actuator provides monitoring endpoints based on Spring Boot Actuator and the healthcheck-ping module by Mathias Schreck",
-    "main": "lib/actuatorMiddleware",
-    "files": [
-        "lib/",
-        "LICENSE",
-        "README.md"
-    ],
-    "license": "MIT",
-    "author": "Raúl Cruz <rcruzper@gmail.com>",
-    "dependencies": {
-        "express": "4.14.0"
-    },
-    "devDependencies": {
-        "coveralls": "2.11.15",
-        "eslint": "3.10.2",
-        "chai": "3.5.0",
-        "mocha": "3.1.2",
-        "sinon": "1.17.6",
-        "sinon-chai": "2.8.0",
-        "supertest": "2.0.1",
-        "supertest-as-promised": "4.0.2",
-        "istanbul": "0.4.5",
-        "pr-log": "1.6.0"
-    },
-    "scripts": {
-        "test:functional": "mocha test/functional --reporter spec --recursive",
-        "test:unit": "istanbul test _mocha -- test/unit --reporter spec --recursive",
-        "pretest": "eslint .",
-        "test": "npm run test:unit --coverage && npm run test:functional",
-        "posttest": "npm run check-coverage",
-        "check-coverage": "istanbul check-coverage --statement 100 --branch 100 --function 100 --lines 100",
-        "changelog": "pr-log",
-        "coveralls": "cat ./build/coverage/lcov.info | coveralls"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/rcruzper/express-actuator.git"
-    },
-    "keywords": [
-        "express",
-        "middleware",
-        "actuator",
-        "healthcheck",
-        "health",
-        "ping",
-        "metrics",
-        "info"
-    ]
+  "name": "express-actuator",
+  "version": "1.0.0",
+  "description": "Express Actuator provides monitoring endpoints based on Spring Boot Actuator and the healthcheck-ping module by Mathias Schreck",
+  "main": "lib/actuatorMiddleware",
+  "files": [
+    "lib/",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "license": "MIT",
+  "author": "Raúl Cruz <rcruzper@gmail.com>",
+  "dependencies": {
+    "express": "4.14.0",
+    "rewire": "2.5.2"
+  },
+  "devDependencies": {
+    "coveralls": "2.11.15",
+    "eslint": "3.10.2",
+    "chai": "3.5.0",
+    "mocha": "3.1.2",
+    "sinon": "1.17.6",
+    "sinon-chai": "2.8.0",
+    "supertest": "2.0.1",
+    "supertest-as-promised": "4.0.2",
+    "istanbul": "0.4.5",
+    "pr-log": "1.6.0"
+  },
+  "scripts": {
+    "test:functional": "mocha test/functional --reporter spec --recursive",
+    "test:unit": "istanbul test _mocha -- test/unit --reporter spec --recursive",
+    "pretest": "eslint .",
+    "test": "npm run test:unit --coverage && npm run test:functional",
+    "posttest": "npm run check-coverage",
+    "check-coverage": "istanbul check-coverage --statement 100 --branch 100 --function 100 --lines 100",
+    "changelog": "pr-log",
+    "coveralls": "cat ./build/coverage/lcov.info | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rcruzper/express-actuator.git"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "actuator",
+    "healthcheck",
+    "health",
+    "ping",
+    "metrics",
+    "info"
+  ]
 }
