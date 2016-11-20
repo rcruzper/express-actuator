@@ -6,6 +6,7 @@ var chai = require('chai'),
     sinonChai = require('sinon-chai'),
     infoRoute = require('../../../lib/infoRoute');
 var rewire = require("rewire");
+var mock = require('mock-fs');
 
 chai.use(sinonChai);
 
@@ -36,7 +37,7 @@ describe('info route', function () {
 
     it('should send a payload when process.env.npm_package_name does not exists', function () {
         var infoRouteRewire = rewire("../../../lib/infoRoute");
-        infoRouteRewire.__set__("env", null);
+        infoRouteRewire.__set__("envPackageName", null);
 
         infoRouteRewire(null, response);
 
@@ -44,7 +45,22 @@ describe('info route', function () {
         expect(response.json).to.have.property('name');
     });
 
+    it('should send a payload when process.env.npm_package_name does not exists and git.properties exists', function () {
+        var infoRouteRewire = rewire("../../../lib/infoRoute");
+        infoRouteRewire.__set__("envPackageName", null);
 
+        mock({
+          'git.properties': "git.branch=master\ngit.commit.id.abbrev=1324324\ngit.commit.time=2016-11-18T13:16:39.000Z",
+          'package.json': "\{\"name\":\"eor\"\}"
+        });
+
+        infoRouteRewire(null, response);
+
+        expect(response.json).to.have.been.calledOnce;
+        expect(response.json).to.have.property('name');
+
+        mock.restore();
+    });
 
     it('should flush the response sending', function () {
         infoRoute(null, response);

@@ -1,4 +1,13 @@
+### Node ###
+# Logs
+logs
+*.log
+npm-debug.log*
+node_modules/
+
 *.iml
 .idea
-node_modules
+
 build/
+
+git.properties
