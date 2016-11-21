@@ -13,19 +13,22 @@
   "author": "Raúl Cruz <rcruzper@gmail.com>",
   "dependencies": {
     "express": "4.14.0",
-    "rewire": "2.5.2"
+    "moment": "2.16.0",
+    "utils-fs-read-properties": "1.0.0"
   },
   "devDependencies": {
+    "chai": "3.5.0",
     "coveralls": "2.11.15",
     "eslint": "3.10.2",
-    "chai": "3.5.0",
+    "istanbul": "0.4.5",
     "mocha": "3.1.2",
+    "mock-fs": "^3.12.1",
+    "pr-log": "1.6.0",
+    "rewire": "2.5.2",
     "sinon": "1.17.6",
     "sinon-chai": "2.8.0",
     "supertest": "2.0.1",
-    "supertest-as-promised": "4.0.2",
-    "istanbul": "0.4.5",
-    "pr-log": "1.6.0"
+    "supertest-as-promised": "4.0.2"
   },
   "scripts": {
     "test:functional": "mocha test/functional --reporter spec --recursive",
