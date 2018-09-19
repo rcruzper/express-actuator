@@ -29,7 +29,7 @@ describe('when /info', function () {
 
     it('should return build and git when git.properties exists', function (done) {
         mock({
-          'git.properties': "\{git.branch=master\ngit.commit.id=1324324\ngit.commit.time=1478086940000\}"
+          'git.properties': "{git.branch=master\ngit.commit.id=1324324\ngit.commit.time=1478086940000}"
         });
 
         request.get('/info')

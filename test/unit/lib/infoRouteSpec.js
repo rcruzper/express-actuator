@@ -51,7 +51,7 @@ describe('info route', function () {
 
         mock({
           'git.properties': "git.branch=master\ngit.commit.id.abbrev=1324324\ngit.commit.time=2016-11-18T13:16:39.000Z",
-          'package.json': "\{\"name\":\"eor\"\}"
+          'package.json': "{\"name\":\"eor\"}"
         });
 
         infoRouteRewire(null, response);

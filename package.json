@@ -1,6 +1,6 @@
 {
   "name": "express-actuator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Express Actuator provides monitoring endpoints based on Spring Boot Actuator and the healthcheck-ping module by Mathias Schreck",
   "main": "lib/actuatorMiddleware",
   "files": [
@@ -12,26 +12,26 @@
   "license": "MIT",
   "author": "Raúl Cruz <rcruzper@gmail.com>",
   "dependencies": {
-    "express": "4.14.0",
-    "moment": "2.16.0",
+    "express": "4.16.3",
+    "moment": "2.22.2",
     "utils-fs-read-properties": "1.0.0"
   },
   "devDependencies": {
-    "chai": "3.5.0",
-    "coveralls": "2.11.15",
-    "eslint": "3.10.2",
+    "chai": "4.1.2",
+    "coveralls": "3.0.2",
+    "eslint": "5.6.0",
     "istanbul": "0.4.5",
-    "mocha": "3.1.2",
-    "mock-fs": "^3.12.1",
-    "pr-log": "1.6.0",
-    "rewire": "2.5.2",
-    "sinon": "1.17.6",
-    "sinon-chai": "2.8.0",
-    "supertest": "2.0.1",
+    "mocha": "5.2.0",
+    "mock-fs": "4.7.0",
+    "pr-log": "3.0.0",
+    "rewire": "4.0.1",
+    "sinon": "6.3.4",
+    "sinon-chai": "3.2.0",
+    "supertest": "3.3.0",
     "supertest-as-promised": "4.0.2"
   },
   "scripts": {
-    "test:functional": "mocha test/functional --reporter spec --recursive",
+    "test:functional": "mocha test/functional --reporter spec --recursive --exit",
     "test:unit": "istanbul test _mocha -- test/unit --reporter spec --recursive",
     "pretest": "eslint .",
     "test": "npm run test:unit --coverage && npm run test:functional",
