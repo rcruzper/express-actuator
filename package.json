@@ -31,7 +31,7 @@
     "supertest-as-promised": "4.0.2"
   },
   "scripts": {
-    "test:functional": "mocha test/functional --reporter spec --recursive",
+    "test:functional": "mocha test/functional --reporter spec --recursive  --exit",
     "test:unit": "istanbul test _mocha -- test/unit --reporter spec --recursive",
     "pretest": "eslint .",
     "test": "npm run test:unit --coverage && npm run test:functional",
