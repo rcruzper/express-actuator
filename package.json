@@ -19,7 +19,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "coveralls": "^3.0.3",
-    "eslint": "3.10.2",
+    "eslint": "^6.2.1",
     "istanbul": "0.4.5",
     "mocha": "^6.1.4",
     "mock-fs": "^4.10.0",
