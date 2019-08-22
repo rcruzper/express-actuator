@@ -18,12 +18,12 @@
   },
   "devDependencies": {
     "chai": "3.5.0",
-    "coveralls": "^3.0.3",
+    "coveralls": "^3.0.6",
     "eslint": "^6.2.1",
-    "istanbul": "0.4.5",
-    "mocha": "^6.1.4",
-    "mock-fs": "^4.10.0",
-    "pr-log": "^3.1.0",
+    "mocha": "^6.2.0",
+    "mock-fs": "^4.10.1",
+    "nyc": "^14.1.1",
+    "pr-log": "3.1.0",
     "rewire": "2.5.2",
     "sinon": "1.17.6",
     "sinon-chai": "2.8.0",
@@ -31,14 +31,10 @@
     "supertest-as-promised": "4.0.2"
   },
   "scripts": {
-    "test:functional": "mocha test/functional --reporter spec --recursive  --exit",
-    "test:unit": "istanbul test _mocha -- test/unit --reporter spec --recursive",
     "pretest": "eslint .",
-    "test": "npm run test:unit --coverage && npm run test:functional",
-    "posttest": "npm run check-coverage",
-    "check-coverage": "istanbul check-coverage --statement 100 --branch 100 --function 100 --lines 100",
-    "changelog": "pr-log",
-    "coveralls": "cat ./build/coverage/lcov.info | coveralls"
+    "test": "nyc mocha --recursive --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "changelog": "pr-log"
   },
   "repository": {
     "type": "git",
