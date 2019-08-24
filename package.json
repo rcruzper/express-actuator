@@ -2,12 +2,12 @@
   "name": "express-actuator",
   "version": "1.1.2",
   "description": "Express Actuator provides monitoring endpoints based on Spring Boot Actuator and the healthcheck-ping module by Mathias Schreck",
-  "main": "lib/actuatorMiddleware",
+  "main": "./lib/actuatorMiddleware",
   "files": [
-    "lib/",
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md"
+    "/lib",
+    "/LICENSE",
+    "/README.md",
+    "/CHANGELOG.md"
   ],
   "engines": {
     "node": ">=10.16.3"
