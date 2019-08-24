@@ -26,18 +26,15 @@
     "mocha": "^6.2.0",
     "mock-fs": "^4.10.1",
     "nyc": "^14.1.1",
-    "pr-log": "3.1.0",
     "rewire": "2.5.2",
     "sinon": "1.17.6",
     "sinon-chai": "2.8.0",
-    "supertest": "^4.0.2",
-    "supertest-as-promised": "4.0.2"
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "pretest": "eslint .",
     "test": "nyc mocha --recursive --exit",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "changelog": "pr-log"
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",

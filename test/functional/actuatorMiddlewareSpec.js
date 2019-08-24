@@ -1,6 +1,6 @@
 'use strict';
 
-var supertest = require('supertest-as-promised');
+var supertest = require('supertest');
 var express = require('express');
 var server = express();
 var expect = require('chai').expect;
