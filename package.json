@@ -10,7 +10,7 @@
     "/CHANGELOG.md"
   ],
   "engines": {
-    "node": ">=10.16.3"
+    "node": ">=8.0.0"
   },
   "license": "MIT",
   "author": "Raúl Cruz <rcruzper@gmail.com>",
