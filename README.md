@@ -3,6 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/express-actuator.svg?style=flat)](https://badge.fury.io/js/express-actuator)
 [![Build Status](https://travis-ci.org/rcruzper/express-actuator.svg?branch=master)](https://travis-ci.org/rcruzper/express-actuator)
 [![Coverage Status](https://coveralls.io/repos/github/rcruzper/express-actuator/badge.svg?branch=master)](https://coveralls.io/github/rcruzper/express-actuator?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/npm/express-actuator/badge.svg)](https://snyk.io/test/npm/express-actuator)
 [![Dependencies Status](https://david-dm.org/rcruzper/express-actuator/dev-status.svg)](https://david-dm.org/rcruzper/express-actuator/dev-status)
 
 This middleware creates a series of endpoints to help you monitor and manage your application when it's pushed to production.
