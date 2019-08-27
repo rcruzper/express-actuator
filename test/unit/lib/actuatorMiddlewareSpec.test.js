@@ -1,16 +1,16 @@
 'use strict';
 
-var chai = require('chai'),
-    sinon = require('sinon'),
-    expect = chai.expect,
-    express = require('express'),
-    infoRoute = require('../../../lib/infoRoute'),
-    actuatorMiddleware = require('../../../lib/actuatorMiddleware');
+const chai = require('chai');
+const sinon = require('sinon');
+const expect = chai.expect;
+const express = require('express');
+const infoRoute = require('../../../lib/infoRoute');
+const actuator = require('../../../lib/actuatorMiddleware');
 
 chai.use(require('sinon-chai'));
 
 describe('actuator middleware', function () {
-    var router;
+    let router;
 
     beforeEach(function () {
         router = {
@@ -25,21 +25,21 @@ describe('actuator middleware', function () {
     });
 
     it('should create a new router', function () {
-        var infoRouter = actuatorMiddleware();
+        let infoRouter = actuator();
 
         expect(infoRouter).to.equal(router);
         expect(express.Router).to.have.been.calledOnce;
     });
 
     it('should mount the info route on the default endpoint', function () {
-        actuatorMiddleware();
+        actuator();
 
         expect(router.get).to.have.been.calledTwice;
         expect(router.get).to.have.been.calledWithExactly('/info', infoRoute);
     });
 
     it('should mount the info route on the given endpoint', function () {
-        actuatorMiddleware('/foobar');
+        actuator('/foobar');
 
         expect(router.get).to.have.been.calledTwice;
         expect(router.get).to.have.been.calledWithExactly('/foobar/info', infoRoute);

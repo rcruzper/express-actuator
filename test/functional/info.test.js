@@ -33,7 +33,7 @@ describe('GET /info', function() {
             });
     });
 
-    it('should not return build when package.json does not exist');
+    xit('should not return build when package.json does not exist');
 
     // TODO: activate again once a way to test with different/mock files
     xit('should return build and git when package.json and git.properties exists', function(done) {
@@ -50,9 +50,9 @@ describe('GET /info', function() {
                 expect(res.body.build.name).to.equal("testName");
                 expect(res.body.build.description).to.equal("testDescription");
                 expect(res.body.build.version).to.equal("1.0.0");
-                // expect(res.body.git.branch).to.equal('master');
-                // expect(res.body.git.commit.id).to.equal('1324324');
-                // expect(res.body.git.commit.time).to.equal('1478086940000');
+                expect(res.body.git.branch).to.equal('master');
+                expect(res.body.git.commit.id).to.equal('1324324');
+                expect(res.body.git.commit.time).to.equal('1478086940000');
                 done();
             });
     });
