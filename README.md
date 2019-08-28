@@ -12,42 +12,11 @@ It is based on [Spring Boot Actuator](http://docs.spring.io/spring-boot/docs/cur
 
 ## Endpoints
 
-These are the endpoints available:
-
-- /info - Displays application information.
-    ```json
-    {
-        "build": {
-            "description": "This is my new app",
-            "name": "MyApp",
-            "version": "1.0.0"
-        },
-        "git": {
-            "branch": "master",
-            "commit": {
-                "id": "329a314",
-                "time": 1478086940000
-            }
-        }    
-    }
-    ```
-    IMPORTANT: To get this information the middleware have some sort of logic:
-    1. If the express app is executed with ```npm start``` it will get the data from process.env
-    2. If the express app is executed with ```node app.js``` the module will look for a file named package.json where the node command was launched.
-    3. Git information will show only if exists a ```git-properties``` file where the app was launched. You can use [node-git-info](https://www.npmjs.com/package/node-git-info) to generate this file.
-
-
-- /metrics - Shows ‘metrics’ information for the current application.
-    ```json
-    {
-        "mem": {
-            "heapTotal": 14659584,
-            "heapUsed": 10615072,
-            "rss": 30093312
-        },
-        "uptime": 19.797
-    }
-    ```
+ID | Description
+--- | ---
+`info` | Displays application information.
+`metrics` | Shows metrics information for the current application.
+`health` | Shows application health information.
 
 ## Installation
 
@@ -69,4 +38,46 @@ If you want the endpoints to be available on a base path you can do so:
 
 ```js
 app.use(actuator('/management')); // It will set /management/info instead of /info
+```
+
+## Request Examples
+### info
+```json
+{
+    "build": {
+        "description": "This is my new app",
+        "name": "MyApp",
+        "version": "1.0.0"
+    },
+    "git": {
+        "branch": "master",
+        "commit": {
+            "id": "329a314",
+            "time": 1478086940000
+        }
+    }    
+}
+```
+IMPORTANT: To get this information the middleware have some sort of logic:
+1. If the express app is executed with ```npm start``` it will get the data from process.env
+2. If the express app is executed with ```node app.js``` the module will look for a file named package.json where the node command was launched.
+3. Git information will show only if exists a ```git.properties``` file where the app was launched. You can use [node-git-info](https://www.npmjs.com/package/node-git-info) to generate this file.
+
+### metrics
+```json
+{
+    "mem": {
+        "heapTotal": 14659584,
+        "heapUsed": 10615072,
+        "rss": 30093312
+    },
+    "uptime": 19.797
+}
+```
+
+### health
+```json
+{
+  "status": "UP"
+}
 ```
