@@ -20,9 +20,9 @@ describe('GET /metrics', function() {
     it('should return metrics', function(done) {
         request(app)
             .get('/metrics')
-            .expect(200)
-            .expect('Content-Type', 'application/json; charset=utf-8')
             .end(function(err, res) {
+                expect(res.statusCode).to.equal(200);
+                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
                 expect(res.body.mem.external).to.be.a("number");
                 expect(res.body.mem.heapTotal).to.be.a("number");
                 expect(res.body.mem.heapUsed).to.be.a("number");
