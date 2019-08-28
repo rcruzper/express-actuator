@@ -65,7 +65,7 @@ var app = express();
 app.use(actuator());
 ```
 
-If you want the endpoints to be available on a custom endpoint you can do so:
+If you want the endpoints to be available on a base path you can do so:
 
 ```js
 app.use(actuator('/management')); // It will set /management/info instead of /info

@@ -22,9 +22,9 @@ describe('GET /info', function() {
     it('should return build when package.json exists', function(done) {
         request(app)
             .get('/info')
-            .expect(200)
-            .expect('Content-Type', 'application/json; charset=utf-8')
             .end(function(err, res) {
+                expect(res.statusCode).to.equal(200);
+                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
                 expect(res.body.build.name).to.equal("express-actuator");
                 expect(res.body.build.description).to.equal("Express Actuator provides monitoring endpoints based on Spring Boot Actuator and the healthcheck-ping module by Mathias Schreck");
                 expect(res.body.build.version).to.be.a("string");
@@ -44,9 +44,9 @@ describe('GET /info', function() {
 
         request(app)
             .get('/info')
-            .expect(200)
-            .expect('Content-Type', 'application/json; charset=utf-8')
             .end(function(err, res) {
+                expect(res.statusCode).to.equal(200);
+                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
                 expect(res.body.build.name).to.equal("testName");
                 expect(res.body.build.description).to.equal("testDescription");
                 expect(res.body.build.version).to.equal("1.0.0");
