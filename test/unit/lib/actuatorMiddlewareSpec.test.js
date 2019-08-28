@@ -34,14 +34,14 @@ describe('actuator middleware', function () {
     it('should mount the info route on the default endpoint', function () {
         actuator();
 
-        expect(router.get).to.have.been.calledTwice;
+        expect(router.get).to.have.been.calledThrice;
         expect(router.get).to.have.been.calledWithExactly('/info', infoRoute);
     });
 
     it('should mount the info route on the given endpoint', function () {
         actuator('/foobar');
 
-        expect(router.get).to.have.been.calledTwice;
+        expect(router.get).to.have.been.calledThrice;
         expect(router.get).to.have.been.calledWithExactly('/foobar/info', infoRoute);
     });
 });
