@@ -10,36 +10,54 @@ let app;
 
 describe('GET /info', function() {
     beforeEach(function() {
-       app = express();
-       app.use(actuator());
+        app = express();
+        app.use(actuator());
     });
 
     afterEach(function() {
         app.close;
+        mock.restore();
     });
 
-    // TODO: the validation should be against a package.json mocked
-    it('should return build when package.json exists', function(done) {
+    it('should return build when package.json exists and git.properties doesn\'t', function(done) {
+        mock({
+            './package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}'
+        });
+
         request(app)
             .get('/info')
             .end(function(err, res) {
                 expect(res.statusCode).to.equal(200);
                 expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                expect(res.body.build.name).to.equal("express-actuator");
-                expect(res.body.build.description).to.equal("Express Actuator provides monitoring endpoints based on Spring Boot Actuator and the healthcheck-ping module by Mathias Schreck");
-                expect(res.body.build.version).to.be.a("string");
+                expect(res.body.build.name).to.equal("testName");
+                expect(res.body.build.description).to.equal("testDescription");
+                expect(res.body.build.version).to.equal("1.0.0");
                 expect(res.body.git).to.be.undefined;
                 done();
             });
     });
 
-    xit('should not return build when package.json does not exist');
+    it('should not return build when package.json does not exist', function(done) {
+        // The behaviour of a package.json empty is the same as if file doesn't exists
+        mock({
+            'package.json': ''
+        });
 
-    // TODO: activate again once a way to test with different/mock files
-    xit('should return build and git when package.json and git.properties exists', function(done) {
+        request(app)
+            .get('/info')
+            .end(function(err, res) {
+                expect(res.statusCode).to.equal(200);
+                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
+                expect(res.body.build).to.be.undefined;
+                expect(res.body.git).to.be.undefined;
+                done();
+            });
+    });
+
+    it('should return build and git when package.json and git.properties exists', function(done) {
         mock({
             'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
-            'git.properties': "{git.branch=master\ngit.commit.id=1324324\ngit.commit.time=1478086940000}"
+            'git.properties': "git.branch=master\ngit.commit.id.abbrev=1a24c24\ngit.commit.time=2016-11-18T13:16:39.000Z"
         });
 
         request(app)
@@ -51,8 +69,8 @@ describe('GET /info', function() {
                 expect(res.body.build.description).to.equal("testDescription");
                 expect(res.body.build.version).to.equal("1.0.0");
                 expect(res.body.git.branch).to.equal('master');
-                expect(res.body.git.commit.id).to.equal('1324324');
-                expect(res.body.git.commit.time).to.equal('1478086940000');
+                expect(res.body.git.commit.id).to.equal('1a24c24');
+                expect(res.body.git.commit.time).to.equal(1479474999000);
                 done();
             });
     });
