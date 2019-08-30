@@ -6,7 +6,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/npm/express-actuator/badge.svg)](https://snyk.io/test/npm/express-actuator)
 [![Dependencies Status](https://david-dm.org/rcruzper/express-actuator.svg)](https://david-dm.org/rcruzper/express-actuator)
 
-This middleware creates a series of endpoints to help you monitor and manage your application when it's pushed to production.
+This middleware creates a series of endpoints to help you monitor and manage your application when it's pushed to production. It's useful when you run your application on kubernetes and you are in need of endpoints for [readiness/liveness](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) probe.
 
 It is based on [Spring Boot Actuator](http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#production-ready) and the [healthcheck-ping](https://github.com/holidaycheck/healthcheck-ping) module by Mathias Schreck.
 
@@ -21,7 +21,7 @@ ID | Description
 ## Installation
 
 ```bash
-$ npm install express-actuator --save
+$ npm install --save express-actuator
 ```
 
 ## Usage
