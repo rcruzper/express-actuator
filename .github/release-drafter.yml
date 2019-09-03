@@ -1,0 +1,3 @@
+_extends: .github
+tag-template: express-actuator-$NEXT_PATCH_VERSION
+name-template: v$NEXT_MINOR_VERSION
