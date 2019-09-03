@@ -7,9 +7,9 @@ const actuator = require('../../lib/actuatorMiddleware.js');
 
 let app;
 
-describe('basePath', function() {
+describe('request basePath as string', function() {
 
-    describe('disabled', function() {
+    describe('if is not set', function() {
         beforeEach(function () {
             app = express();
             app.use(actuator());
@@ -40,7 +40,7 @@ describe('basePath', function() {
         });
     });
 
-    describe('enabled', function() {
+    describe('if it is set', function() {
         beforeEach(function () {
             app = express();
             app.use(actuator('/management'));

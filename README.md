@@ -27,18 +27,30 @@ $ npm install --save express-actuator
 ## Usage
 
 ```js
-var actuator = require('express-actuator');
-
-var app = express();
+const actuator = require('express-actuator');
+const app = express();
 
 app.use(actuator());
 ```
 
-If you want the endpoints to be available on a base path you can do so:
+## Configuring Actuator
+
+```js
+const options = {
+    basePath: '/management' // It will set /management/info instead of /info
+};
+
+app.use(actuator(options));
+```
+
+### Deprecated mode
+To have backward compatibility with previous versions (<= 1.2.0) the legacy way is still available:
 
 ```js
 app.use(actuator('/management')); // It will set /management/info instead of /info
 ```
+
+> **_IMPORTANT:_** Deprecated mode will be remove in future versions.
 
 ## Request Examples
 ### info
@@ -58,9 +70,9 @@ app.use(actuator('/management')); // It will set /management/info instead of /in
     }    
 }
 ```
-IMPORTANT: To get this information the middleware have some sort of logic:
-1. When the express app is executed with ```node app.js``` or ```npm start``` the module will look for a file named package.json where the node command was launched.
-2. Git information will show only if exists a ```git.properties``` file where the app was launched. You can use [node-git-info](https://www.npmjs.com/package/node-git-info) to generate this file.
+> **_IMPORTANT:_** To get this information the middleware have some sort of logic:
+>1. When the express app is executed with ```node app.js``` or ```npm start``` the module will look for a file named package.json where the node command was launched.
+>2. Git information will show only if exists a ```git.properties``` file where the app was launched. You can use [node-git-info](https://www.npmjs.com/package/node-git-info) to generate this file.
 
 ### metrics
 ```json
