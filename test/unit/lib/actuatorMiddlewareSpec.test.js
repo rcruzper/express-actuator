@@ -29,13 +29,13 @@ describe('actuator middleware', function () {
         let infoRouter = actuator();
 
         expect(infoRouter).to.equal(router);
-        // expect(express.Router).to.have.been.calledOnce;
+        expect(express.Router).to.have.been.calledOnce;
     });
 
     it('should mount the info route on the default endpoint', function () {
         actuator();
 
-        // expect(router.get).to.have.been.calledThrice;
+        expect(router.get).to.have.been.calledThrice;
         expect(router.get).to.have.been.calledWithExactly('/info', infoRoute);
     });
 
@@ -56,7 +56,5 @@ describe('actuator middleware', function () {
         actuator({unknownData: "/test"});
 
         expect(router.get).to.have.been.calledWithExactly('/health', healthRoute);
-        // expect(router.get.body)
-        // console.log(router.)
     });
 });
