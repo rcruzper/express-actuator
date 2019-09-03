@@ -1,3 +1,46 @@
-_extends: .github
-tag-template: express-actuator-$NEXT_PATCH_VERSION
+# Configuration for Release Drafter: https://github.com/toolmantim/release-drafter
 name-template: v$NEXT_MINOR_VERSION
+tag-template: express-actuator-$NEXT_MINOR_VERSION
+version-template: $MAJOR.$MINOR.$PATCH
+
+# Emoji reference: https://gitmoji.carloscuesta.me/
+categories:
+  - title: ":boom: Breaking changes"
+    labels: 
+      - breaking
+  - title: 🚨 Removed
+    label: removed
+  - title: ⚠️ Deprecated
+    label: deprecated
+  - title: 🚀 New features and improvements
+    labels:
+      - enhancement
+      - feature
+  - title: 🐛 Bug Fixes
+    labels:
+      - bug
+      - fix
+      - bugfix
+      - regression  
+  - title: 📝 Documentation updates
+    label: documentation
+  # Default label used by Dependabot
+  - title: 📦 Dependency updates
+    label: dependencies
+  - title: 👻 Maintenance
+    label: chore
+  - title: 🚦 Internal changes
+    label: internal
+  - title: 🚦 Tests
+    labels: 
+      - test
+      - tests
+exclude-labels:
+  - reverted
+  - no-changelog
+  - skip-changelog
+  - invalid
+
+template: |
+  <!-- Optional: add a release summary here -->
+  $CHANGES
