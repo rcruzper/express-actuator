@@ -50,7 +50,7 @@ To have backward compatibility with previous versions (<= 1.2.0) the legacy way 
 app.use(actuator('/management')); // It will set /management/info instead of /info
 ```
 
-> **_IMPORTANT:_** Deprecated mode will be remove in future versions.
+> **_IMPORTANT:_** Deprecated mode will be removed in the next major version.
 
 ## Request Examples
 ### info
