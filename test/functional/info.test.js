@@ -76,3 +76,50 @@ describe('GET /info', function() {
     });
 
 });
+
+describe('GET /info with infoGitMode', function() {
+    beforeEach(function() {
+        app = express();
+    });
+
+    afterEach(function() {
+        app.close;
+        mock.restore();
+    });
+
+    it('should return git full information when infoGitMode is full', function(done) {
+        mock({
+            'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
+            'git.properties': "git.commit.id.abbrev=42954d1\n" +
+                "git.commit.user.email=user@email.com\n" +
+                "git.commit.message.full=first commit\n" +
+                "git.commit.id=42954d1fe6285fea65ba81ea39d71d5b75f9ade0\n" +
+                "git.commit.message.short=first commit\n" +
+                "git.commit.user.name=User Name\n" +
+                "git.branch=master\n" +
+                "git.commit.time=2016-11-18T13:16:39.000Z"
+        });
+
+        app.use(actuator({infoGitMode: 'full'}));
+
+        request(app)
+            .get('/info')
+            .end(function(err, res) {
+                expect(res.statusCode).to.equal(200);
+                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
+                expect(res.body.build.name).to.equal("testName");
+                expect(res.body.build.description).to.equal("testDescription");
+                expect(res.body.build.version).to.equal("1.0.0");
+                expect(res.body.git.commit.id).to.equal('42954d1');
+                expect(res.body.git.commit.user.email).to.equal('user@email.com');
+                expect(res.body.git.commit.message.full).to.equal('first commit');
+                expect(res.body.git.commit.idFull).to.equal('42954d1fe6285fea65ba81ea39d71d5b75f9ade0');
+                expect(res.body.git.commit.message.short).to.equal('first commit');
+                expect(res.body.git.commit.user.name).to.equal('User Name');
+                expect(res.body.git.branch).to.equal('master');
+                expect(res.body.git.commit.time).to.equal(1479474999000);
+                done();
+            });
+    });
+
+});
