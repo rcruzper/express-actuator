@@ -10,6 +10,25 @@ This middleware creates a series of endpoints to help you monitor and manage you
 
 It is based on [Spring Boot Actuator](http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#production-ready) and the [healthcheck-ping](https://github.com/holidaycheck/healthcheck-ping) module by Mathias Schreck.
 
+Table of Contents
+=================
+
+<!-- toc -->
+
+- [Endpoints](#endpoints)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuring Actuator](#configuring-actuator)
+  * [Deprecated mode](#deprecated-mode)
+- [Endpoints Examples](#endpoints-examples)
+  * [info](#info)
+  * [metrics](#metrics)
+  * [health](#health)
+- [Application Information](#application-information)
+  * [Git Commit Information](#git-commit-information)
+
+<!-- tocstop -->
+
 ## Endpoints
 
 ID | Description
@@ -34,10 +53,12 @@ app.use(actuator());
 ```
 
 ## Configuring Actuator
+All defined options are optional:
 
 ```js
 const options = {
-    basePath: '/management' // It will set /management/info instead of /info
+    basePath: '/management', // It will set /management/info instead of /info
+    infoGitMode: 'simple' // the amount of git information you want to expose, 'simple' or 'full'
 };
 
 app.use(actuator(options));
@@ -52,7 +73,7 @@ app.use(actuator('/management')); // It will set /management/info instead of /in
 
 > **_IMPORTANT:_** Deprecated mode will be removed in the next major version.
 
-## Request Examples
+## Endpoints Examples
 ### info
 ```json
 {
@@ -91,4 +112,20 @@ app.use(actuator('/management')); // It will set /management/info instead of /in
 {
   "status": "UP"
 }
+```
+
+## Application Information
+### Git Commit Information
+The info endpoint has a feature to publish information about your git source code repository. If a git.properties file is available on your project path, the git.branch, git.commit.id, and git.commit.time properties are exposed.
+
+> **_TIP:_** You can use [node-git-info](https://www.npmjs.com/package/node-git-info) to generate git.properties file on your project.
+
+If you want to display the full git information (that is, the full content of git.properties), use the infoGitMode property, as follows:
+
+```js
+const options = {
+    infoGitMode: 'full'
+};
+
+app.use(actuator(options));
 ```
