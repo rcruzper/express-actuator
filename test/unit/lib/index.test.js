@@ -4,9 +4,9 @@ const chai = require('chai');
 const sinon = require('sinon');
 const expect = chai.expect;
 const express = require('express');
-const Info = require('../../../lib/infoRoute');
-const healthRoute = require('../../../lib/healthRoute');
-const actuator = require('../../../lib/actuatorMiddleware');
+const Info = require('../../../lib/endpoints/info');
+const Health = require('../../../lib/endpoints/health');
+const actuator = require('../../../lib');
 
 chai.use(require('sinon-chai'));
 
@@ -49,12 +49,12 @@ describe('actuator middleware', function () {
     it('should mount the health route on the given endpoint when options is set', function () {
         actuator({basePath: "/management"});
 
-        expect(router.get).to.have.been.calledWithExactly('/management/health', healthRoute);
+        expect(router.get).to.have.been.calledWithExactly('/management/health', new Health().route);
     });
 
     it('should mount the health route on the given endpoint when options has unknown data', function () {
         actuator({unknownData: "/test"});
 
-        expect(router.get).to.have.been.calledWithExactly('/health', healthRoute);
+        expect(router.get).to.have.been.calledWithExactly('/health', new Health().route);
     });
 });

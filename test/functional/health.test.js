@@ -3,7 +3,7 @@
 const request = require('supertest');
 const express = require('express');
 const expect = require('chai').expect;
-const actuator = require('../../lib/actuatorMiddleware.js');
+const actuator = require('../../lib');
 
 let app;
 
