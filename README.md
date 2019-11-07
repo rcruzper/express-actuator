@@ -43,6 +43,11 @@ ID | Description
 $ npm install --save express-actuator
 ```
 
+#### Typescript
+```bash
+$ npm install --save-dev @types/express-actuator
+```
+
 ## Usage
 
 ```js
