@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/rcruzper/express-actuator/badge.svg?branch=master)](https://coveralls.io/github/rcruzper/express-actuator?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/npm/express-actuator/badge.svg)](https://snyk.io/test/npm/express-actuator)
 [![Dependencies Status](https://david-dm.org/rcruzper/express-actuator.svg)](https://david-dm.org/rcruzper/express-actuator)
+![npm](https://img.shields.io/npm/dm/express-actuator)
 
 This middleware creates a series of endpoints to help you monitor and manage your application when it's pushed to production. It's useful when you run your application on kubernetes and you are in need of endpoints for [readiness/liveness](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) probe.
 
@@ -15,17 +16,20 @@ Table of Contents
 
 <!-- toc -->
 
-- [Endpoints](#endpoints)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuring Actuator](#configuring-actuator)
-  * [Deprecated mode](#deprecated-mode)
-- [Endpoints Examples](#endpoints-examples)
-  * [info](#info)
-  * [metrics](#metrics)
-  * [health](#health)
-- [Application Information](#application-information)
-  * [Git Commit Information](#git-commit-information)
+- [Express Actuator](#express-actuator)
+- [Table of Contents](#table-of-contents)
+  - [Endpoints](#endpoints)
+  - [Installation](#installation)
+      - [Typescript](#typescript)
+  - [Usage](#usage)
+  - [Configuring Actuator](#configuring-actuator)
+    - [Deprecated mode](#deprecated-mode)
+  - [Endpoints Examples](#endpoints-examples)
+    - [info](#info)
+    - [metrics](#metrics)
+    - [health](#health)
+  - [Application Information](#application-information)
+    - [Git Commit Information](#git-commit-information)
 
 <!-- tocstop -->
 
@@ -93,7 +97,7 @@ app.use(actuator('/management')); // It will set /management/info instead of /in
             "id": "329a314",
             "time": 1478086940000
         }
-    }    
+    }
 }
 ```
 > **_IMPORTANT:_** To get this information the middleware have some sort of logic:
