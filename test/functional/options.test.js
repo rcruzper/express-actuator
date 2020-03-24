@@ -7,7 +7,17 @@ const actuator = require('../../lib');
 
 let app;
 
-describe('request basePath within options', function() {
+describe('request basePath within options', function () {
+    const makeRequest = function (path, done) {
+        request(app)
+            .get(path)
+            .end(function (err, res) {
+                expect(res.statusCode).to.equal(200);
+                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
+                expect(res.body.status).to.equal('UP');
+                done();
+            });
+    };
 
     beforeEach(function () {
         app = express();
@@ -17,38 +27,23 @@ describe('request basePath within options', function() {
         app.close;
     });
 
-    it('should return 200 when options has basePath set', function(done) {
+    it('should return 200 when options has basePath set', function (done) {
         const options = {
             basePath: "/management"
         };
 
         app.use(actuator(options));
+        makeRequest("/management/health", done)
 
-        request(app)
-            .get('/management/health')
-            .end(function (err, res) {
-                expect(res.statusCode).to.equal(200);
-                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                expect(res.body.status).to.equal("UP");
-                done();
-            });
     });
 
-    it('should return 200 when options has unknown data', function(done) {
+    it('should return 200 when options has unknown data', function (done) {
         const options = {
             unknownData: "data"
         };
 
         app.use(actuator(options));
-
-        request(app)
-            .get('/health')
-            .end(function (err, res) {
-                expect(res.statusCode).to.equal(200);
-                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                expect(res.body.status).to.equal("UP");
-                done();
-            });
+        makeRequest("/health", done)
     });
 
 });
