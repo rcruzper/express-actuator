@@ -57,4 +57,34 @@ describe('actuator middleware', function () {
 
         expect(router.get).to.have.been.calledWithExactly('/health', new Health().route);
     });
+
+    it('should register a custom endpoint when received in options', function () {
+        const controller = function () {
+        };
+        actuator({
+            customEndpoints: [
+                {
+                    id: '/test',
+                    controller: controller,
+                },
+            ],
+        });
+
+        expect(router.get).to.have.been.calledWithExactly('/health', new Health().route);
+        expect(router.get).to.have.been.calledWithExactly('/test', controller);
+    });
+    it('should register a custom endpoint fixing the path received in options', function () {
+        const controller = function () {
+        };
+        actuator({
+            customEndpoints: [
+                {
+                    id: 'test',
+                    controller: controller,
+                },
+            ],
+        });
+
+        expect(router.get).to.have.been.calledWithExactly('/test', controller);
+    });
 });
