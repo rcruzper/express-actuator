@@ -23,6 +23,7 @@ Table of Contents
       - [Typescript](#typescript)
   - [Usage](#usage)
   - [Configuring Actuator](#configuring-actuator)
+    - [Custom Endpoints](#custom-endpoints)
     - [Deprecated mode](#deprecated-mode)
   - [Endpoints Examples](#endpoints-examples)
     - [info](#info)
@@ -67,11 +68,33 @@ All defined options are optional:
 ```js
 const options = {
     basePath: '/management', // It will set /management/info instead of /info
-    infoGitMode: 'simple' // the amount of git information you want to expose, 'simple' or 'full'
+    infoGitMode: 'simple', // the amount of git information you want to expose, 'simple' or 'full'
+    customEndpoints: [] // array of extra endpoints
 };
 
 app.use(actuator(options));
 ```
+### Custom Endpoints
+You can add your own validations using the `customEndpoints` option:
+
+```js
+const options = {
+    customEndpoints: [
+        {
+            id: 'dependecies', // used as endpoint /dependencies or ${basePath}/dependencies
+            controller: (req, res) => { // Controller to be called when accessing this endpoint
+                // Your custom code here
+            }
+        }       
+    ]
+};                                                    
+
+app.use(actuator(options));
+```
+> **_IMPORTANT:_** 
+>1. Even if you call your custom endpoint as **"info"** it will not override the default info.
+>2. If you provide `basePath`, your id will be available as `${basePath}/${id}`, otherwise, just `/${id}`.
+>3. Consider lightweight code being processed by your endpoint controller or it will compete with your main application.
 
 ### Deprecated mode
 To have backward compatibility with previous versions (<= 1.2.0) the legacy way is still available:
