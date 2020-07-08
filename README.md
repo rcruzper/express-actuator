@@ -68,7 +68,8 @@ All defined options are optional:
 ```js
 const options = {
     basePath: '/management', // It will set /management/info instead of /info
-    infoGitMode: 'simple', // the amount of git information you want to expose, 'simple' or 'full'
+    infoGitMode: 'simple', // the amount of git information you want to expose, 'simple' or 'full',
+    infoDateFormat: null, // by default, it will show git.commit.time value as is. If defined, moment will format the git.commit.time value. See https://momentjs.com/docs/#/displaying/format/.
     customEndpoints: [] // array of extra endpoints
 };
 
@@ -118,7 +119,7 @@ app.use(actuator('/management')); // It will set /management/info instead of /in
         "branch": "master",
         "commit": {
             "id": "329a314",
-            "time": 1478086940000
+            "time": "2016-11-18 08:16:39-0500"
         }
     }
 }
