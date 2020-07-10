@@ -70,7 +70,7 @@ describe('GET /info', function() {
                 expect(res.body.build.version).to.equal("1.0.0");
                 expect(res.body.git.branch).to.equal('master');
                 expect(res.body.git.commit.id).to.equal('1a24c24');
-                expect(res.body.git.commit.time).to.equal(1479474999000);
+                expect(res.body.git.commit.time).to.equal('2016-11-18T13:16:39.000Z');
                 done();
             });
     });
@@ -117,9 +117,79 @@ describe('GET /info with infoGitMode', function() {
                 expect(res.body.git.commit.message.short).to.equal('first commit');
                 expect(res.body.git.commit.user.name).to.equal('User Name');
                 expect(res.body.git.branch).to.equal('master');
-                expect(res.body.git.commit.time).to.equal(1479474999000);
+                expect(res.body.git.commit.time).to.equal('2016-11-18T13:16:39.000Z');
                 done();
             });
     });
 
+});
+
+describe('GET /info with infoDateFormat', function() {
+    beforeEach(function() {
+        app = express();
+    });
+
+    afterEach(function() {
+        app.close;
+        mock.restore();
+    });
+
+    it('should return git time formatted when infoDateFormat is defined', function(done) {
+        mock({
+            'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
+            'git.properties': "git.branch=master\ngit.commit.id.abbrev=1a24c24\ngit.commit.time=2016-11-18T13:16:39.000Z"
+        });
+
+        app.use(actuator({infoDateFormat: 'YYYY-MM-DD'}));
+
+        request(app)
+            .get('/info')
+            .end(function(err, res) {
+                expect(res.statusCode).to.equal(200);
+                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
+                expect(res.body.build.name).to.equal("testName");
+                expect(res.body.build.description).to.equal("testDescription");
+                expect(res.body.build.version).to.equal("1.0.0");
+                expect(res.body.git.branch).to.equal('master');
+                expect(res.body.git.commit.id).to.equal('1a24c24');
+                expect(res.body.git.commit.time).to.equal('2016-11-18');
+                done();
+            });
+    });
+
+});
+
+describe('GET /info with infoBuildOptions', function() {
+    beforeEach(function() {
+        app = express();
+    });
+
+    afterEach(function() {
+        app.close;
+        mock.restore();
+    });
+
+    it('should return build with added infoBuildOptions information when defined', function(done) {
+        mock({
+            'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
+        });
+
+        app.use(actuator({
+            infoBuildOptions: {
+                test: 'test'
+            }
+        }));
+
+        request(app)
+            .get('/info')
+            .end(function(err, res) {
+                expect(res.statusCode).to.equal(200);
+                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
+                expect(res.body.build.name).to.equal("testName");
+                expect(res.body.build.description).to.equal("testDescription");
+                expect(res.body.build.version).to.equal("1.0.0");
+                expect(res.body.build.test).to.equal("test");
+                done();
+            });
+    });
 });
