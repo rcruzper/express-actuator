@@ -1,3 +1,7 @@
+## 1.3.0 and newer
+
+No longer tracked in this file. See [GitHub releases](https://github.com/rcruzper/express-actuator/releases) instead.
+
 ## 1.2.0 (August 30, 2019)
 
 ### Features
