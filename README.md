@@ -31,6 +31,7 @@ Table of Contents
     - [health](#health)
   - [Application Information](#application-information)
     - [Git Commit Information](#git-commit-information)
+  - [Contributing](#contributing)
 
 <!-- tocstop -->
 
@@ -87,13 +88,13 @@ const options = {
             controller: (req, res) => { // Controller to be called when accessing this endpoint
                 // Your custom code here
             }
-        }       
+        }
     ]
-};                                                    
+};
 
 app.use(actuator(options));
 ```
-> **_IMPORTANT:_** 
+> **_IMPORTANT:_**
 >1. Even if you call your custom endpoint as **"info"** it will not override the default info.
 >2. If you provide `basePath`, your id will be available as `${basePath}/${id}`, otherwise, just `/${id}`.
 >3. Consider lightweight code being processed by your endpoint controller or it will compete with your main application.
@@ -163,3 +164,9 @@ const options = {
 
 app.use(actuator(options));
 ```
+
+## Contributing
+
+Third-party contributions are welcome! 🙏🏼 See [CONTRIBUTING.md](CONTRIBUTING.md) for step-by-step instructions.
+
+If you need help or have a question, let me know via a GitHub issue.
