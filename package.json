@@ -19,6 +19,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "coveralls": "^3.0.6",
+    "dirty-chai": "^2.0.1",
     "eslint": "^6.2.1",
     "mocha": "^6.2.0",
     "mock-fs": "^4.10.1",
@@ -26,10 +27,16 @@
     "nyc": "^14.1.1",
     "sinon": "^7.4.1",
     "sinon-chai": "^3.3.0",
+    "standard": "^14.3.4",
     "supertest": "^4.0.2"
   },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  },
   "scripts": {
-    "pretest": "eslint .",
+    "pretest": "standard",
     "test": "nyc mocha \"test/**/*.test.js\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
