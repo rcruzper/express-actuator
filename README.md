@@ -72,7 +72,7 @@ const options = {
     infoGitMode: 'simple', // the amount of git information you want to expose, 'simple' or 'full',
     infoBuildOptions: null, // extra information you want to expose in the build object. Requires an object.
     infoDateFormat: null, // by default, git.commit.time will show as is defined in git.properties. If infoDateFormat is defined, moment will format git.commit.time. See https://momentjs.com/docs/#/displaying/format/.
-    customEndpoints: [] // array of extra endpoints
+    customEndpoints: [] // array of custom endpoints
 };
 
 app.use(actuator(options));
@@ -95,7 +95,7 @@ const options = {
 app.use(actuator(options));
 ```
 > **_IMPORTANT:_**
->1. Even if you call your custom endpoint as **"info"** it will not override the default info.
+>1. If you call your custom endpoint `info` it **WILL** override the default info.
 >2. If you provide `basePath`, your id will be available as `${basePath}/${id}`, otherwise, just `/${id}`.
 >3. Consider lightweight code being processed by your endpoint controller or it will compete with your main application.
 
