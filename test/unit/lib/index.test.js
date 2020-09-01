@@ -91,6 +91,22 @@ describe('actuator middleware', function () {
         expect(router.get).to.have.been.not.calledWithExactly('/info', new Info().route);
     });
 
+    it('should register a custom endpoint fixing the path for info instead of the original', function () {
+        const controller = function () {};
+
+        actuator({
+            customEndpoints: [
+                {
+                    id: 'info',
+                    controller: controller,
+                },
+            ],
+        });
+
+        expect(router.get).to.have.been.calledWithExactly('/info', controller);
+        expect(router.get).to.have.been.not.calledWithExactly('/info', new Info().route);
+    });
+
     it('should register a custom endpoint for metrics instead of the original', function () {
         const controller = function () {};
 
