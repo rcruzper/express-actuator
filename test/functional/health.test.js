@@ -32,21 +32,4 @@ describe('GET /health', function () {
         makeRequest(app, done);
 
     });
-
-    it('should not be replaced for an external controller specified in options', function (done) {
-        app = express();
-        const controller = () => {
-        };
-        app.use(actuator({
-            customEndpoints: [
-                {
-                    id: "/health",
-                    controller: controller,
-                },
-            ],
-        }));
-
-        makeRequest(app, done);
-
-    })
 });
