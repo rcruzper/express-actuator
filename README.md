@@ -11,16 +11,15 @@ This middleware creates a series of endpoints to help you monitor and manage you
 
 It is based on [Spring Boot Actuator](http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#production-ready) and the [healthcheck-ping](https://github.com/holidaycheck/healthcheck-ping) module by Mathias Schreck.
 
-Table of Contents
-=================
+## Table of Contents
 
 <!-- toc -->
 
 - [Express Actuator](#express-actuator)
-- [Table of Contents](#table-of-contents)
+  - [Table of Contents](#table-of-contents)
   - [Endpoints](#endpoints)
   - [Installation](#installation)
-      - [Typescript](#typescript)
+    - [Typescript](#typescript)
   - [Usage](#usage)
   - [Configuring Actuator](#configuring-actuator)
     - [Custom Endpoints](#custom-endpoints)
@@ -46,12 +45,13 @@ ID | Description
 ## Installation
 
 ```bash
-$ npm install --save express-actuator
+npm install --save express-actuator
 ```
 
-#### Typescript
+### Typescript
+
 ```bash
-$ npm install --save-dev @types/express-actuator
+npm install --save-dev @types/express-actuator
 ```
 
 ## Usage
@@ -64,6 +64,7 @@ app.use(actuator());
 ```
 
 ## Configuring Actuator
+
 All defined options are optional:
 
 ```js
@@ -77,14 +78,16 @@ const options = {
 
 app.use(actuator(options));
 ```
+
 ### Custom Endpoints
+
 You can add your own validations using the `customEndpoints` option:
 
 ```js
 const options = {
     customEndpoints: [
         {
-            id: 'dependecies', // used as endpoint /dependencies or ${basePath}/dependencies
+            id: 'dependencies', // used as endpoint /dependencies or ${basePath}/dependencies
             controller: (req, res) => { // Controller to be called when accessing this endpoint
                 // Your custom code here
             }
@@ -94,12 +97,15 @@ const options = {
 
 app.use(actuator(options));
 ```
+
 > **_IMPORTANT:_**
->1. Even if you call your custom endpoint as **"info"** it will not override the default info.
->2. If you provide `basePath`, your id will be available as `${basePath}/${id}`, otherwise, just `/${id}`.
+>
+> 1. Even if you call your custom endpoint as **"info"** it will not override the default info.
+> 2. If you provide `basePath`, your id will be available as `${basePath}/${id}`, otherwise, just `/${id}`.
 >3. Consider lightweight code being processed by your endpoint controller or it will compete with your main application.
 
 ### Deprecated mode
+
 To have backward compatibility with previous versions (<= 1.2.0) the legacy way is still available:
 
 ```js
@@ -109,7 +115,9 @@ app.use(actuator('/management')); // It will set /management/info instead of /in
 > **_IMPORTANT:_** Deprecated mode will be removed in the next major version.
 
 ## Endpoints Examples
+
 ### info
+
 ```json
 {
     "build": {
@@ -126,11 +134,14 @@ app.use(actuator('/management')); // It will set /management/info instead of /in
     }
 }
 ```
+
 > **_IMPORTANT:_** To get this information the middleware have some sort of logic:
->1. When the express app is executed with ```node app.js``` or ```npm start``` the module will look for a file named package.json where the node command was launched.
->2. Git information will show only if exists a ```git.properties``` file where the app was launched. You can use [node-git-info](https://www.npmjs.com/package/node-git-info) to generate this file.
+>
+> 1. When the express app is executed with ```node app.js``` or ```npm start``` the module will look for a file named package.json where the node command was launched.
+> 2. Git information will show only if a ```git.properties``` file exists where the app was launched. You can use [node-git-info](https://www.npmjs.com/package/node-git-info) to generate this file.
 
 ### metrics
+
 ```json
 {
     "mem": {
@@ -143,6 +154,7 @@ app.use(actuator('/management')); // It will set /management/info instead of /in
 ```
 
 ### health
+
 ```json
 {
   "status": "UP"
@@ -150,7 +162,9 @@ app.use(actuator('/management')); // It will set /management/info instead of /in
 ```
 
 ## Application Information
+
 ### Git Commit Information
+
 The info endpoint has a feature to publish information about your git source code repository. If a git.properties file is available on your project path, the git.branch, git.commit.id, and git.commit.time properties are exposed.
 
 > **_TIP:_** You can use [node-git-info](https://www.npmjs.com/package/node-git-info) to generate git.properties file on your project.
