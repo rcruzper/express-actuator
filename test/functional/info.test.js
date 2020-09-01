@@ -1,195 +1,197 @@
-'use strict';
+'use strict'
 
-const request = require('supertest');
-const express = require('express');
-const expect = require('chai').expect;
-const actuator = require('../../lib');
-const mock = require('mock-fs');
+const request = require('supertest')
+const express = require('express')
+const chai = require('chai')
+const expect = chai.expect
+const actuator = require('../../lib')
+const mock = require('mock-fs')
 
-let app;
+chai.use(require('dirty-chai'))
 
-describe('GET /info', function() {
-    beforeEach(function() {
-        app = express();
-        app.use(actuator());
-    });
+let app
 
-    afterEach(function() {
-        app.close;
-        mock.restore();
-    });
+describe('GET /info', function () {
+  beforeEach(function () {
+    app = express()
+    app.use(actuator())
+  })
 
-    it('should return build when package.json exists and git.properties doesn\'t', function(done) {
-        mock({
-            './package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}'
-        });
+  afterEach(function () {
+    mock.restore()
+  })
 
-        request(app)
-            .get('/info')
-            .end(function(err, res) {
-                expect(res.statusCode).to.equal(200);
-                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                expect(res.body.build.name).to.equal("testName");
-                expect(res.body.build.description).to.equal("testDescription");
-                expect(res.body.build.version).to.equal("1.0.0");
-                expect(res.body.git).to.be.undefined;
-                done();
-            });
-    });
+  it('should return build when package.json exists and git.properties doesn\'t', function (done) {
+    mock({
+      './package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}'
+    })
 
-    it('should not return build when package.json does not exist', function(done) {
-        // The behaviour of a package.json empty is the same as if file doesn't exists
-        mock({
-            'package.json': ''
-        });
+    request(app)
+      .get('/info')
+      .end(function (err, res) {
+        if (err) return err
+        expect(res.statusCode).to.equal(200)
+        expect(res.headers['content-type']).to.equal('application/json; charset=utf-8')
+        expect(res.body.build.name).to.equal('testName')
+        expect(res.body.build.description).to.equal('testDescription')
+        expect(res.body.build.version).to.equal('1.0.0')
+        expect(res.body.git).to.be.undefined()
+        done()
+      })
+  })
 
-        request(app)
-            .get('/info')
-            .end(function(err, res) {
-                expect(res.statusCode).to.equal(200);
-                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                expect(res.body.build).to.be.undefined;
-                expect(res.body.git).to.be.undefined;
-                done();
-            });
-    });
+  it('should not return build when package.json does not exist', function (done) {
+    // The behaviour of a package.json empty is the same as if file doesn't exists
+    mock({
+      'package.json': ''
+    })
 
-    it('should return build and git when package.json and git.properties exists', function(done) {
-        mock({
-            'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
-            'git.properties': "git.branch=master\ngit.commit.id.abbrev=1a24c24\ngit.commit.time=2016-11-18T13:16:39.000Z"
-        });
+    request(app)
+      .get('/info')
+      .end(function (err, res) {
+        if (err) return err
+        expect(res.statusCode).to.equal(200)
+        expect(res.headers['content-type']).to.equal('application/json; charset=utf-8')
+        expect(res.body.build).to.be.undefined()
+        expect(res.body.git).to.be.undefined()
+        done()
+      })
+  })
 
-        request(app)
-            .get('/info')
-            .end(function(err, res) {
-                expect(res.statusCode).to.equal(200);
-                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                expect(res.body.build.name).to.equal("testName");
-                expect(res.body.build.description).to.equal("testDescription");
-                expect(res.body.build.version).to.equal("1.0.0");
-                expect(res.body.git.branch).to.equal('master');
-                expect(res.body.git.commit.id).to.equal('1a24c24');
-                expect(res.body.git.commit.time).to.equal('2016-11-18T13:16:39.000Z');
-                done();
-            });
-    });
+  it('should return build and git when package.json and git.properties exists', function (done) {
+    mock({
+      'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
+      'git.properties': 'git.branch=master\ngit.commit.id.abbrev=1a24c24\ngit.commit.time=2016-11-18T13:16:39.000Z'
+    })
 
-});
+    request(app)
+      .get('/info')
+      .end(function (err, res) {
+        if (err) return err
+        expect(res.statusCode).to.equal(200)
+        expect(res.headers['content-type']).to.equal('application/json; charset=utf-8')
+        expect(res.body.build.name).to.equal('testName')
+        expect(res.body.build.description).to.equal('testDescription')
+        expect(res.body.build.version).to.equal('1.0.0')
+        expect(res.body.git.branch).to.equal('master')
+        expect(res.body.git.commit.id).to.equal('1a24c24')
+        expect(res.body.git.commit.time).to.equal('2016-11-18T13:16:39.000Z')
+        done()
+      })
+  })
+})
 
-describe('GET /info with infoGitMode', function() {
-    beforeEach(function() {
-        app = express();
-    });
+describe('GET /info with infoGitMode', function () {
+  beforeEach(function () {
+    app = express()
+  })
 
-    afterEach(function() {
-        app.close;
-        mock.restore();
-    });
+  afterEach(function () {
+    mock.restore()
+  })
 
-    it('should return git full information when infoGitMode is full', function(done) {
-        mock({
-            'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
-            'git.properties': "git.commit.id.abbrev=42954d1\n" +
-                "git.commit.user.email=user@email.com\n" +
-                "git.commit.message.full=first commit\n" +
-                "git.commit.id=42954d1fe6285fea65ba81ea39d71d5b75f9ade0\n" +
-                "git.commit.message.short=first commit\n" +
-                "git.commit.user.name=User Name\n" +
-                "git.branch=master\n" +
-                "git.commit.time=2016-11-18T13:16:39.000Z"
-        });
+  it('should return git full information when infoGitMode is full', function (done) {
+    mock({
+      'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
+      'git.properties': 'git.commit.id.abbrev=42954d1\n' +
+                'git.commit.user.email=user@email.com\n' +
+                'git.commit.message.full=first commit\n' +
+                'git.commit.id=42954d1fe6285fea65ba81ea39d71d5b75f9ade0\n' +
+                'git.commit.message.short=first commit\n' +
+                'git.commit.user.name=User Name\n' +
+                'git.branch=master\n' +
+                'git.commit.time=2016-11-18T13:16:39.000Z'
+    })
 
-        app.use(actuator({infoGitMode: 'full'}));
+    app.use(actuator({ infoGitMode: 'full' }))
 
-        request(app)
-            .get('/info')
-            .end(function(err, res) {
-                expect(res.statusCode).to.equal(200);
-                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                expect(res.body.build.name).to.equal("testName");
-                expect(res.body.build.description).to.equal("testDescription");
-                expect(res.body.build.version).to.equal("1.0.0");
-                expect(res.body.git.commit.id).to.equal('42954d1');
-                expect(res.body.git.commit.user.email).to.equal('user@email.com');
-                expect(res.body.git.commit.message.full).to.equal('first commit');
-                expect(res.body.git.commit.idFull).to.equal('42954d1fe6285fea65ba81ea39d71d5b75f9ade0');
-                expect(res.body.git.commit.message.short).to.equal('first commit');
-                expect(res.body.git.commit.user.name).to.equal('User Name');
-                expect(res.body.git.branch).to.equal('master');
-                expect(res.body.git.commit.time).to.equal('2016-11-18T13:16:39.000Z');
-                done();
-            });
-    });
+    request(app)
+      .get('/info')
+      .end(function (err, res) {
+        if (err) return err
+        expect(res.statusCode).to.equal(200)
+        expect(res.headers['content-type']).to.equal('application/json; charset=utf-8')
+        expect(res.body.build.name).to.equal('testName')
+        expect(res.body.build.description).to.equal('testDescription')
+        expect(res.body.build.version).to.equal('1.0.0')
+        expect(res.body.git.commit.id).to.equal('42954d1')
+        expect(res.body.git.commit.user.email).to.equal('user@email.com')
+        expect(res.body.git.commit.message.full).to.equal('first commit')
+        expect(res.body.git.commit.idFull).to.equal('42954d1fe6285fea65ba81ea39d71d5b75f9ade0')
+        expect(res.body.git.commit.message.short).to.equal('first commit')
+        expect(res.body.git.commit.user.name).to.equal('User Name')
+        expect(res.body.git.branch).to.equal('master')
+        expect(res.body.git.commit.time).to.equal('2016-11-18T13:16:39.000Z')
+        done()
+      })
+  })
+})
 
-});
+describe('GET /info with infoDateFormat', function () {
+  beforeEach(function () {
+    app = express()
+  })
 
-describe('GET /info with infoDateFormat', function() {
-    beforeEach(function() {
-        app = express();
-    });
+  afterEach(function () {
+    mock.restore()
+  })
 
-    afterEach(function() {
-        app.close;
-        mock.restore();
-    });
+  it('should return git time formatted when infoDateFormat is defined', function (done) {
+    mock({
+      'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
+      'git.properties': 'git.branch=master\ngit.commit.id.abbrev=1a24c24\ngit.commit.time=2016-11-18T13:16:39.000Z'
+    })
 
-    it('should return git time formatted when infoDateFormat is defined', function(done) {
-        mock({
-            'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
-            'git.properties': "git.branch=master\ngit.commit.id.abbrev=1a24c24\ngit.commit.time=2016-11-18T13:16:39.000Z"
-        });
+    app.use(actuator({ infoDateFormat: 'YYYY-MM-DD' }))
 
-        app.use(actuator({infoDateFormat: 'YYYY-MM-DD'}));
+    request(app)
+      .get('/info')
+      .end(function (err, res) {
+        if (err) return err
+        expect(res.statusCode).to.equal(200)
+        expect(res.headers['content-type']).to.equal('application/json; charset=utf-8')
+        expect(res.body.build.name).to.equal('testName')
+        expect(res.body.build.description).to.equal('testDescription')
+        expect(res.body.build.version).to.equal('1.0.0')
+        expect(res.body.git.branch).to.equal('master')
+        expect(res.body.git.commit.id).to.equal('1a24c24')
+        expect(res.body.git.commit.time).to.equal('2016-11-18')
+        done()
+      })
+  })
+})
 
-        request(app)
-            .get('/info')
-            .end(function(err, res) {
-                expect(res.statusCode).to.equal(200);
-                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                expect(res.body.build.name).to.equal("testName");
-                expect(res.body.build.description).to.equal("testDescription");
-                expect(res.body.build.version).to.equal("1.0.0");
-                expect(res.body.git.branch).to.equal('master');
-                expect(res.body.git.commit.id).to.equal('1a24c24');
-                expect(res.body.git.commit.time).to.equal('2016-11-18');
-                done();
-            });
-    });
+describe('GET /info with infoBuildOptions', function () {
+  beforeEach(function () {
+    app = express()
+  })
 
-});
+  afterEach(function () {
+    mock.restore()
+  })
 
-describe('GET /info with infoBuildOptions', function() {
-    beforeEach(function() {
-        app = express();
-    });
+  it('should return build with added infoBuildOptions information when defined', function (done) {
+    mock({
+      'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}'
+    })
 
-    afterEach(function() {
-        app.close;
-        mock.restore();
-    });
+    app.use(actuator({
+      infoBuildOptions: {
+        test: 'test'
+      }
+    }))
 
-    it('should return build with added infoBuildOptions information when defined', function(done) {
-        mock({
-            'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
-        });
-
-        app.use(actuator({
-            infoBuildOptions: {
-                test: 'test'
-            }
-        }));
-
-        request(app)
-            .get('/info')
-            .end(function(err, res) {
-                expect(res.statusCode).to.equal(200);
-                expect(res.headers['content-type']).to.equal('application/json; charset=utf-8');
-                expect(res.body.build.name).to.equal("testName");
-                expect(res.body.build.description).to.equal("testDescription");
-                expect(res.body.build.version).to.equal("1.0.0");
-                expect(res.body.build.test).to.equal("test");
-                done();
-            });
-    });
-});
+    request(app)
+      .get('/info')
+      .end(function (err, res) {
+        if (err) return err
+        expect(res.statusCode).to.equal(200)
+        expect(res.headers['content-type']).to.equal('application/json; charset=utf-8')
+        expect(res.body.build.name).to.equal('testName')
+        expect(res.body.build.description).to.equal('testDescription')
+        expect(res.body.build.version).to.equal('1.0.0')
+        expect(res.body.build.test).to.equal('test')
+        done()
+      })
+  })
+})
