@@ -13,22 +13,22 @@
   "author": "Raúl Cruz <rcruzper@gmail.com>",
   "dependencies": {
     "express": "^4.17.1",
-    "moment": "^2.27.0",
+    "moment": "^2.29.1",
     "utils-fs-read-properties": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "coveralls": "^3.0.6",
+    "coveralls": "^3.1.0",
     "dirty-chai": "^2.0.1",
-    "eslint": "^6.8.0",
-    "mocha": "^6.2.0",
-    "mock-fs": "^4.10.1",
-    "node-mocks-http": "^1.7.6",
-    "nyc": "^14.1.1",
-    "sinon": "^7.4.1",
-    "sinon-chai": "^3.3.0",
-    "standard": "^14.3.4",
-    "supertest": "^4.0.2"
+    "eslint": "^7.13.0",
+    "mocha": "^8.2.1",
+    "mock-fs": "^4.13.0",
+    "node-mocks-http": "^1.9.0",
+    "nyc": "^15.1.0",
+    "sinon": "^9.2.1",
+    "sinon-chai": "^3.5.0",
+    "standard": "^16.0.2",
+    "supertest": "^6.0.1"
   },
   "standard": {
     "env": [
