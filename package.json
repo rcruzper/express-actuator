@@ -14,7 +14,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "moment": "^2.29.1",
-    "utils-fs-read-properties": "^1.0.0"
+    "properties-reader": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
