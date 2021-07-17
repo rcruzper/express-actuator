@@ -1,6 +1,6 @@
 # Configuration for Release Drafter: https://github.com/toolmantim/release-drafter
-name-template: v$NEXT_MINOR_VERSION
-tag-template: express-actuator-$NEXT_MINOR_VERSION
+name-template: v$RESOLVED_VERSION
+tag-template: express-actuator-$RESOLVED_VERSION
 version-template: $MAJOR.$MINOR.$PATCH
 
 # Emoji reference: https://gitmoji.carloscuesta.me/
@@ -39,6 +39,18 @@ exclude-labels:
   - no-changelog
   - skip-changelog
   - invalid
+
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
 
 template: |
   $CHANGES
