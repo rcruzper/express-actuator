@@ -80,6 +80,42 @@ describe('GET /info', function () {
       })
   })
 
+  it('should return the same response using the cache', function (done) {
+    mock({
+      'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
+      'git.properties': 'git.branch=master\ngit.commit.id.abbrev=1a24c24\ngit.commit.time=2016-11-18T13:16:39.000Z'
+    })
+
+    request(app)
+      .get('/info')
+      .end(function (err, res) {
+        if (err) return err
+        expect(res.statusCode).to.equal(200)
+        expect(res.headers['content-type']).to.equal('application/json; charset=utf-8')
+        expect(res.body.build.name).to.equal('testName')
+        expect(res.body.build.description).to.equal('testDescription')
+        expect(res.body.build.version).to.equal('1.0.0')
+        expect(res.body.git.branch).to.equal('master')
+        expect(res.body.git.commit.id).to.equal('1a24c24')
+        expect(res.body.git.commit.time).to.equal('2016-11-18T13:16:39.000Z')
+      })
+
+    request(app)
+      .get('/info')
+      .end(function (err, res) {
+        if (err) return err
+        expect(res.statusCode).to.equal(200)
+        expect(res.headers['content-type']).to.equal('application/json; charset=utf-8')
+        expect(res.body.build.name).to.equal('testName')
+        expect(res.body.build.description).to.equal('testDescription')
+        expect(res.body.build.version).to.equal('1.0.0')
+        expect(res.body.git.branch).to.equal('master')
+        expect(res.body.git.commit.id).to.equal('1a24c24')
+        expect(res.body.git.commit.time).to.equal('2016-11-18T13:16:39.000Z')
+        done()
+      })
+  })
+
   it('should return commit.id as string when short commit id has an e', function (done) {
     mock({
       'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
@@ -144,6 +180,34 @@ describe('GET /info with infoGitMode', function () {
         expect(res.body.git.commit.user.name).to.equal('User Name')
         expect(res.body.git.branch).to.equal('master')
         expect(res.body.git.commit.time).to.equal('2016-11-18T13:16:39.000Z')
+        done()
+      })
+  })
+
+  it('should not return git information when infoGitMode not exists', function (done) {
+    mock({
+      'package.json': '{"name":"testName","description":"testDescription","version":"1.0.0"}',
+      'git.properties': 'git.commit.id.abbrev=296e115\n' +
+        'git.commit.user.email=user@email.com\n' +
+        'git.commit.message.full=first commit\n' +
+        'git.commit.id=296e115fe6285fea65ba81ea39d71d5b75f9ade0\n' +
+        'git.commit.message.short=first commit\n' +
+        'git.commit.user.name=User Name\n' +
+        'git.branch=master\n' +
+        'git.commit.time=2016-11-18T13:16:39.000Z'
+    })
+
+    app.use(actuator({ infoGitMode: 'notexists' }))
+
+    request(app)
+      .get('/info')
+      .end(function (err, res) {
+        if (err) return err
+        expect(res.statusCode).to.equal(200)
+        expect(res.headers['content-type']).to.equal('application/json; charset=utf-8')
+        expect(res.body.build.name).to.equal('testName')
+        expect(res.body.build.description).to.equal('testDescription')
+        expect(res.body.build.version).to.equal('1.0.0')
         done()
       })
   })
