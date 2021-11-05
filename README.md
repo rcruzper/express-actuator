@@ -84,7 +84,7 @@ You can add your own validations using the `customEndpoints` option:
 const options = {
     customEndpoints: [
         {
-            id: 'dependecies', // used as endpoint /dependencies or ${basePath}/dependencies
+            id: 'dependencies', // used as endpoint /dependencies or ${basePath}/dependencies
             controller: (req, res) => { // Controller to be called when accessing this endpoint
                 // Your custom code here
             }
