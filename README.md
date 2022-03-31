@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/rcruzper/express-actuator.svg?branch=master)](https://travis-ci.org/rcruzper/express-actuator)
 [![Coverage Status](https://coveralls.io/repos/github/rcruzper/express-actuator/badge.svg?branch=master)](https://coveralls.io/github/rcruzper/express-actuator?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/npm/express-actuator/badge.svg)](https://snyk.io/test/npm/express-actuator)
-[![Dependencies Status](https://david-dm.org/rcruzper/express-actuator.svg)](https://david-dm.org/rcruzper/express-actuator)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/express-actuator)
 ![npm](https://img.shields.io/npm/dm/express-actuator)
 
 This middleware creates a series of endpoints to help you monitor and manage your application when it's pushed to production. It's useful when you run your application on kubernetes and you are in need of endpoints for [readiness/liveness](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) probe.
