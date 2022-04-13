@@ -12,7 +12,6 @@
   "license": "MIT",
   "author": "Raúl Cruz <rcruzper@gmail.com>",
   "dependencies": {
-    "express": "^4.17.1",
     "moment": "^2.29.1",
     "properties-reader": "^2.2.0"
   },
@@ -21,6 +20,7 @@
     "coveralls": "^3.1.0",
     "dirty-chai": "^2.0.1",
     "eslint": "^7.32.0",
+    "express": "^4.17.1",
     "mocha": "^7.2.0",
     "mock-fs": "^4.13.0",
     "node-mocks-http": "^1.9.0",
