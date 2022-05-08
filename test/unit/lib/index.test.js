@@ -67,7 +67,7 @@ describe('actuator middleware', function () {
       customEndpoints: [
         {
           id: '/test',
-          controller: controller
+          controller
         }
       ]
     })
@@ -83,7 +83,7 @@ describe('actuator middleware', function () {
       customEndpoints: [
         {
           id: '/info',
-          controller: controller
+          controller
         }
       ]
     })
@@ -99,7 +99,7 @@ describe('actuator middleware', function () {
       customEndpoints: [
         {
           id: 'info',
-          controller: controller
+          controller
         }
       ]
     })
@@ -115,7 +115,7 @@ describe('actuator middleware', function () {
       customEndpoints: [
         {
           id: '/metrics',
-          controller: controller
+          controller
         }
       ]
     })
@@ -131,7 +131,7 @@ describe('actuator middleware', function () {
       customEndpoints: [
         {
           id: '/health',
-          controller: controller
+          controller
         }
       ]
     })
@@ -147,7 +147,7 @@ describe('actuator middleware', function () {
       customEndpoints: [
         {
           id: 'test',
-          controller: controller
+          controller
         }
       ]
     })
