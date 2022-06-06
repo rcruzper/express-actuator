@@ -1,6 +1,6 @@
 {
   "name": "express-actuator",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "Provides endpoints to help you monitor and manage your application when it's pushed to production.",
   "main": "./lib/index",
   "files": [
