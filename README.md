@@ -1,7 +1,7 @@
 # Express Actuator
 
 [![npm version](https://img.shields.io/npm/v/express-actuator.svg?style=flat)](https://badge.fury.io/js/express-actuator)
-[![Build Status](https://travis-ci.org/rcruzper/express-actuator.svg?branch=master)](https://travis-ci.org/rcruzper/express-actuator)
+[![Build Status](https://api.travis-ci.com/rcruzper/express-actuator.svg?branch=master)](https://app.travis-ci.com/github/rcruzper/express-actuator)
 [![Coverage Status](https://coveralls.io/repos/github/rcruzper/express-actuator/badge.svg?branch=master)](https://coveralls.io/github/rcruzper/express-actuator?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/npm/express-actuator/badge.svg)](https://snyk.io/test/npm/express-actuator)
 [![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/express-actuator)](https://libraries.io/npm/express-actuator)
