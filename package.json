@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rcruzper/express-actuator.git"
+    "url": "git+https://github.com/rcruzper/express-actuator.git"
   },
   "keywords": [
     "actuator",
